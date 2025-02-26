@@ -113,10 +113,19 @@ static inline uint32_t urgb_u32(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void atualizar_matriz() {
-    uint32_t cor = urgb_u32(160, 32, 240);
-    for (int i = 0; i < NUM_PIXELS; i++) {
-        put_pixel(padroes_numeros[numero_exibido][i] ? cor : 0);
-    }
+      // aqui controla o brilho dos leds. tava doendo o olho
+      float fator_brilho = 0.3; // 50% de intensidade
+    
+      // mudando as cores apra que todas fiquem com o mesmo brilho
+      uint8_t r = (uint8_t)(160 * fator_brilho);
+      uint8_t g = (uint8_t)(32 * fator_brilho);
+      uint8_t b = (uint8_t)(240 * fator_brilho);
+  
+      uint32_t cor = urgb_u32(r, g, b); 
+  
+      for (int i = 0; i < NUM_PIXELS; i++) {
+          put_pixel(padroes_numeros[numero_exibido][i] ? cor : 0);
+      }
 }
 
 void atualizar_display_oled(int resultado) {
