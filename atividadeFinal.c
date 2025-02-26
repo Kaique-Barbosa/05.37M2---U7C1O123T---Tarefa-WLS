@@ -32,103 +32,108 @@ volatile int primeiro_numero = -1;
 volatile int segundo_numero = -1;
 volatile int resultado = 0;
 
-const uint32_t padroes_numeros[10][25] = { 
+const uint32_t padroes_numeros[10][25] = {
     // Padrão para 0
     {1, 1, 1, 1, 1,
-        1, 0, 0, 0, 1,
-        1, 0, 0, 0, 1,
-        1, 0, 0, 0, 1,
-        1, 1, 1, 1, 1},
-   
-       // Padrão para 1
-       {0, 0, 1, 0, 0,
-        0, 0, 1, 0, 0,
-        0, 0, 1, 0, 0,
-        0, 0, 1, 0, 0,
-        0, 0, 1, 0, 0},
-   
-       // Padrão para 2
-       {1, 1, 1, 1, 1,
-        1, 0, 0, 0, 0,
-        1, 1, 1, 1, 1,
-        0, 0, 0, 0, 1,
-        1, 1, 1, 1, 1},
-   
-       // Padrão para 3
-       {1, 1, 1, 1, 1,
-        0, 0, 0, 0, 1,
-        1, 1, 1, 1, 0,
-        0, 0, 0, 0, 1,
-        1, 1, 1, 1, 1},
-   
-       // Padrão para 4
-       {0, 0, 1, 0, 0,
-        0, 0, 1, 0, 0,
-        0, 1, 1, 1, 1,
-        1, 0, 1, 0, 0,
-        0, 0, 1, 0, 1},
-   
-       // Padrão para 5
-       {1, 1, 1, 1, 1,
-        0, 0, 0, 0, 1,
-        1, 1, 1, 1, 1,
-        1, 0, 0, 0, 0,
-        1, 1, 1, 1, 1},
-   
-       // Padrão para 6
-       {1, 1, 1, 1, 1,
-        1, 0, 0, 0, 1,
-        1, 1, 1, 1, 1,
-        1, 0, 0, 0, 0,
-        1, 1, 1, 1, 1},
-   
-       // Padrão para 7
-       {0, 0, 0, 0, 1,
-        0, 1, 0, 0, 0,
-        0, 0, 1, 0, 0,
-        0, 0, 0, 1, 0,
-        1, 1, 1, 1, 1},
-   
-       // Padrão para 8
-       {1, 1, 1, 1, 1,
-        1, 0, 0, 0, 1,
-        1, 1, 1, 1, 1,
-        1, 0, 0, 0, 1,
-        1, 1, 1, 1, 1},
-   
-       // Padrão para 9
-       {1, 1, 1, 1, 1,
-        0, 0, 0, 0, 1,
-        1, 1, 1, 1, 1,
-        1, 0, 0, 0, 1,
-        1, 1, 1, 1, 1},    
+     1, 0, 0, 0, 1,
+     1, 0, 0, 0, 1,
+     1, 0, 0, 0, 1,
+     1, 1, 1, 1, 1},
+
+    // Padrão para 1
+    {0, 0, 1, 0, 0,
+     0, 0, 1, 0, 0,
+     0, 0, 1, 0, 0,
+     0, 0, 1, 0, 0,
+     0, 0, 1, 0, 0},
+
+    // Padrão para 2
+    {1, 1, 1, 1, 1,
+     1, 0, 0, 0, 0,
+     1, 1, 1, 1, 1,
+     0, 0, 0, 0, 1,
+     1, 1, 1, 1, 1},
+
+    // Padrão para 3
+    {1, 1, 1, 1, 1,
+     0, 0, 0, 0, 1,
+     1, 1, 1, 1, 0,
+     0, 0, 0, 0, 1,
+     1, 1, 1, 1, 1},
+
+    // Padrão para 4
+    {0, 0, 1, 0, 0,
+     0, 0, 1, 0, 0,
+     0, 1, 1, 1, 1,
+     1, 0, 1, 0, 0,
+     0, 0, 1, 0, 1},
+
+    // Padrão para 5
+    {1, 1, 1, 1, 1,
+     0, 0, 0, 0, 1,
+     1, 1, 1, 1, 1,
+     1, 0, 0, 0, 0,
+     1, 1, 1, 1, 1},
+
+    // Padrão para 6
+    {1, 1, 1, 1, 1,
+     1, 0, 0, 0, 1,
+     1, 1, 1, 1, 1,
+     1, 0, 0, 0, 0,
+     1, 1, 1, 1, 1},
+
+    // Padrão para 7
+    {0, 0, 0, 0, 1,
+     0, 1, 0, 0, 0,
+     0, 0, 1, 0, 0,
+     0, 0, 0, 1, 0,
+     1, 1, 1, 1, 1},
+
+    // Padrão para 8
+    {1, 1, 1, 1, 1,
+     1, 0, 0, 0, 1,
+     1, 1, 1, 1, 1,
+     1, 0, 0, 0, 1,
+     1, 1, 1, 1, 1},
+
+    // Padrão para 9
+    {1, 1, 1, 1, 1,
+     0, 0, 0, 0, 1,
+     1, 1, 1, 1, 1,
+     1, 0, 0, 0, 1,
+     1, 1, 1, 1, 1},
 };
 
-static inline void put_pixel(uint32_t pixel_grb) {
+static inline void put_pixel(uint32_t pixel_grb)
+{
     pio_sm_put_blocking(pio0, 0, pixel_grb << 8u);
 }
 
-static inline uint32_t urgb_u32(uint8_t r, uint8_t g, uint8_t b) {
+static inline uint32_t urgb_u32(uint8_t r, uint8_t g, uint8_t b)
+{
     return ((uint32_t)(r) << 8) | ((uint32_t)(g) << 16) | (uint32_t)(b);
 }
 
-void atualizar_matriz() {
-      // aqui controla o brilho dos leds. tava doendo o olho
-      float fator_brilho = 0.3; // 50% de intensidade
-    
-      // mudando as cores apra que todas fiquem com o mesmo brilho
-      uint8_t r = (uint8_t)(160 * fator_brilho);
-      uint8_t g = (uint8_t)(32 * fator_brilho);
-      uint8_t b = (uint8_t)(240 * fator_brilho);
-  
-      uint32_t cor = urgb_u32(r, g, b); 
-  
-      for (int i = 0; i < NUM_PIXELS; i++) {
-          put_pixel(padroes_numeros[numero_exibido][i] ? cor : 0);
-      }
+void atualizar_matriz()
+{
+    // aqui controla o brilho dos leds. tava doendo o olho
+    float fator_brilho = 0.3; // 50% de intensidade
+
+    // mudando as cores apra que todas fiquem com o mesmo brilho
+    uint8_t r = (uint8_t)(160 * fator_brilho);
+    uint8_t g = (uint8_t)(32 * fator_brilho);
+    uint8_t b = (uint8_t)(240 * fator_brilho);
+
+    uint32_t cor = urgb_u32(r, g, b);
+
+    for (int i = 0; i < NUM_PIXELS; i++)
+    {
+        put_pixel(padroes_numeros[numero_exibido][i] ? cor : 0);
+    }
 }
 
-void atualizar_display_oled(int resultado) {
+void atualizar_display_oled(int resultado)
+{
     ssd1306_fill(&ssd, false);
     ssd1306_draw_string(&ssd, "RESULTADO", 8, 10);
     char buffer[10];
@@ -138,14 +143,17 @@ void atualizar_display_oled(int resultado) {
     printf("Resultado: %d\n", resultado);
 }
 
-void interrupcao_botao(uint gpio, uint32_t eventos) {
+void interrupcao_botao(uint gpio, uint32_t eventos)
+{
     uint32_t tempo_atual = to_ms_since_boot(get_absolute_time());
-    if (tempo_atual - ultimo_tempo_interrupcao < DEBOUNCE_TIME) {
+    if (tempo_atual - ultimo_tempo_interrupcao < DEBOUNCE_TIME)
+    {
         return;
     }
     ultimo_tempo_interrupcao = tempo_atual;
 
-    if (resultado_mostrado) {
+    if (resultado_mostrado)
+    {
         resultado_mostrado = false;
         primeiro_numero = -1;
         segundo_numero = -1;
@@ -154,14 +162,20 @@ void interrupcao_botao(uint gpio, uint32_t eventos) {
         return;
     }
 
-    if (gpio == BTN_A) {
+    if (gpio == BTN_A)
+    {
         numero_exibido = (numero_exibido + 1) % 10;
         atualizar_display = true;
-    } else if (gpio == BTN_B) {
-        if (primeiro_numero == -1) {
+    }
+    else if (gpio == BTN_B)
+    {
+        if (primeiro_numero == -1)
+        {
             primeiro_numero = numero_exibido;
             numero_exibido = 0;
-        } else if (segundo_numero == -1) {
+        }
+        else if (segundo_numero == -1)
+        {
             segundo_numero = numero_exibido;
             resultado = primeiro_numero * segundo_numero;
             atualizar_display_oled(resultado);
@@ -170,7 +184,8 @@ void interrupcao_botao(uint gpio, uint32_t eventos) {
     }
 }
 
-void inicializar_componentes() {
+void inicializar_componentes()
+{
     i2c_init(I2C_PORT, 400 * 1000);
     gpio_set_function(I2C_SDA, GPIO_FUNC_I2C);
     gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);
@@ -192,7 +207,8 @@ void inicializar_componentes() {
     gpio_set_irq_enabled(BTN_B, GPIO_IRQ_EDGE_FALL, true);
 }
 
-int main() {
+int main()
+{
     stdio_init_all();
     printf("Iniciando a calculadora de multiplicação\n");
     atualizar_display_oled(0);
@@ -203,9 +219,12 @@ int main() {
     ws2812_program_init(pio, sm, offset, WS2812_PIN, 800000, IS_RGBW);
 
     inicializar_componentes();
-
-    while (1) {
-        if (atualizar_display) {
+    atualizar_display_oled(0);
+    
+    while (1)
+    {
+        if (atualizar_display)
+        {
             atualizar_matriz();
             atualizar_display = false;
         }
