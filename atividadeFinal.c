@@ -20,10 +20,12 @@
 
 #define IS_RGBW false
 #define NUM_PIXELS 25
+#define DEBOUNCE_TIME 200
 
 volatile int numero_exibido = 0;
 volatile bool atualizar_display = true;
 volatile uint32_t ultimo_tempo_interrupcao = 0;
+volatile bool resultado_mostrado = false;
 
 ssd1306_t ssd;
 volatile int primeiro_numero = -1;
@@ -99,8 +101,8 @@ const uint32_t padroes_numeros[10][25] = {
         0, 0, 0, 0, 1,
         1, 1, 1, 1, 1,
         1, 0, 0, 0, 1,
-        1, 1, 1, 1, 1},
- };
+        1, 1, 1, 1, 1},    
+};
 
 static inline void put_pixel(uint32_t pixel_grb) {
     pio_sm_put_blocking(pio0, 0, pixel_grb << 8u);
@@ -124,25 +126,37 @@ void atualizar_display_oled(int resultado) {
     sprintf(buffer, "%d", resultado);
     ssd1306_draw_string(&ssd, buffer, 20, 30);
     ssd1306_send_data(&ssd);
+    printf("Resultado: %d\n", resultado);
 }
 
 void interrupcao_botao(uint gpio, uint32_t eventos) {
+    uint32_t tempo_atual = to_ms_since_boot(get_absolute_time());
+    if (tempo_atual - ultimo_tempo_interrupcao < DEBOUNCE_TIME) {
+        return;
+    }
+    ultimo_tempo_interrupcao = tempo_atual;
+
+    if (resultado_mostrado) {
+        resultado_mostrado = false;
+        primeiro_numero = -1;
+        segundo_numero = -1;
+        numero_exibido = 0;
+        atualizar_display = true;
+        return;
+    }
+
     if (gpio == BTN_A) {
         numero_exibido = (numero_exibido + 1) % 10;
-        atualizar_display = true; // Forçar atualização da matriz de LEDs
+        atualizar_display = true;
     } else if (gpio == BTN_B) {
         if (primeiro_numero == -1) {
             primeiro_numero = numero_exibido;
             numero_exibido = 0;
-            atualizar_display = true; // Forçar atualização da matriz de LEDs
         } else if (segundo_numero == -1) {
             segundo_numero = numero_exibido;
             resultado = primeiro_numero * segundo_numero;
             atualizar_display_oled(resultado);
-            primeiro_numero = -1;
-            segundo_numero = -1;
-            numero_exibido = 0;
-            atualizar_display = true; // Forçar atualização da matriz de LEDs
+            resultado_mostrado = true;
         }
     }
 }
